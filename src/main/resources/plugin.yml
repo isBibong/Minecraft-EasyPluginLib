@@ -1,0 +1,8 @@
+main: ${groupId}.impl.EasyPluginLib
+name: ${artifactId}
+version: ${version}
+api-version: 1.18
+commands:
+  easypluginlib:
+    aliases:
+      - epl
