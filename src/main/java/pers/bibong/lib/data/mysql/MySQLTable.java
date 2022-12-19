@@ -39,74 +39,87 @@ public class MySQLTable {
         }
     }
 
-    public void insertRow (@NotNull List<String> values) throws SQLException {
-        String sql = "INSERT INTO " + tableName + " VALUES (" + String.join(", ",
-                                                                            Collections.nCopies(values.size(),
-                                                                                                "?")) + ")";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            for (int i = 0; i < values.size(); i++) {
-                statement.setString(i + 1, values.get(i));
-            }
-            statement.executeUpdate();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    //
+    //    public void insertRow (@NotNull List<String> values) throws SQLException {
+    //        String sql = "INSERT INTO " + tableName + " VALUES (" + String.join(", ",
+    //                                                                            Collections.nCopies(values.size(),
+    //                                                                                                "?")) + ")";
+    //        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+    //            for (int i = 0; i < values.size(); i++) {
+    //                statement.setString(i + 1, values.get(i));
+    //            }
+    //            statement.executeUpdate();
+    //        }
+    //        catch (SQLException e) {
+    //            e.printStackTrace();
+    //        }
+    //    }
+    //
+    //    @NotNull
+    //    public List<List<String>> selectAll () {
+    //        String sql = "SELECT * FROM " + tableName;
+    //        try {
+    //            PreparedStatement  statement = connection.prepareStatement(sql);
+    //            ResultSet          resultSet = statement.executeQuery();
+    //            List<List<String>> rows      = new ArrayList<>();
+    //            while (resultSet.next()) {
+    //                List<String> row = new ArrayList<>();
+    //                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+    //                    row.add(resultSet.getString(i));
+    //                }
+    //                rows.add(row);
+    //            }
+    //            return rows;
+    //        }
+    //        catch (SQLException e) {
+    //            e.printStackTrace();
+    //        }
+    //        return new ArrayList<>();
+    //    }
+    //
+    //    public void updateRow (
+    //            @NotNull List<String> columnNames,
+    //            @NotNull List<String> values,
+    //            String whereClause
+    //    )
+    //    {
+    //        StringBuilder sb = new StringBuilder();
+    //        sb.append("UPDATE ").append(tableName).append(" SET ");
+    //        for (int i = 0; i < columnNames.size(); i++) {
+    //            sb.append(columnNames.get(i)).append(" = ?");
+    //            if (i < columnNames.size() - 1) {
+    //                sb.append(", ");
+    //            }
+    //        }
+    //        sb.append(" WHERE ").append(whereClause);
+    //        String sql = sb.toString();
+    //        try {
+    //            PreparedStatement statement = connection.prepareStatement(sql);
+    //            for (int i = 0; i < values.size(); i++) {
+    //                statement.setString(i + 1, values.get(i));
+    //            }
+    //            statement.executeUpdate();
+    //        }
+    //        catch (SQLException e) {
+    //            e.printStackTrace();
+    //        }
+    //    }
+    //
+    //    public void deleteRow (String whereClause) {
+    //        String            sql       = "DELETE FROM " + tableName + " WHERE " + whereClause;
+    //        PreparedStatement statement = connection.prepareStatement(sql);
+    //        statement.executeUpdate();
+    //    }
 
-    public List<List<String>> selectAll () throws SQLException {
-        String             sql       = "SELECT * FROM " + tableName;
-        PreparedStatement  statement = connection.prepareStatement(sql);
-        ResultSet          resultSet = statement.executeQuery();
-        List<List<String>> rows      = new ArrayList<>();
-        while (resultSet.next()) {
-            List<String> row = new ArrayList<>();
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                row.add(resultSet.getString(i));
-            }
-            rows.add(row);
-        }
-        return rows;
-    }
-
-    public void updateRow (
-            @NotNull List<String> columnNames,
-            List<String> values,
-            String whereClause
-    )
-    {
-        StringBuilder sb = new StringBuilder();
-        sb.append("UPDATE ").append(tableName).append(" SET ");
-        for (int i = 0; i < columnNames.size(); i++) {
-            sb.append(columnNames.get(i)).append(" = ?");
-            if (i < columnNames.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append(" WHERE ").append(whereClause);
-        String sql = sb.toString();
+    public void dropTable () {
+        String sql = "DROP TABLE " + tableName;
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            for (int i = 0; i < values.size(); i++) {
-                statement.setString(i + 1, values.get(i));
-            }
             statement.executeUpdate();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void deleteRow (String whereClause) throws SQLException {
-        String            sql       = "DELETE FROM " + tableName + " WHERE " + whereClause;
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.executeUpdate();
-    }
-
-    public void dropTable () throws SQLException {
-        String            sql       = "DROP TABLE " + tableName;
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.executeUpdate();
     }
 
 }
