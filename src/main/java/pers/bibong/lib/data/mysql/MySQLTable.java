@@ -27,12 +27,15 @@ public class MySQLTable {
     protected void createTable (
             @NotNull List<String> columnNames,
             List<String> columnType
-    ) throws SQLException
+    )
     {
         String sql = "CREATE TABLE " + tableName + " (" + String.join(", ", columnNames) + " " + String.join(", ",
                                                                                                              columnType) + ")";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -45,6 +48,9 @@ public class MySQLTable {
                 statement.setString(i + 1, values.get(i));
             }
             statement.executeUpdate();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,8 +73,7 @@ public class MySQLTable {
             @NotNull List<String> columnNames,
             List<String> values,
             String whereClause
-    ) throws
-      SQLException
+    )
     {
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE ").append(tableName).append(" SET ");
@@ -79,12 +84,17 @@ public class MySQLTable {
             }
         }
         sb.append(" WHERE ").append(whereClause);
-        String            sql       = sb.toString();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        for (int i = 0; i < values.size(); i++) {
-            statement.setString(i + 1, values.get(i));
+        String sql = sb.toString();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            for (int i = 0; i < values.size(); i++) {
+                statement.setString(i + 1, values.get(i));
+            }
+            statement.executeUpdate();
         }
-        statement.executeUpdate();
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void deleteRow (String whereClause) throws SQLException {
@@ -98,4 +108,5 @@ public class MySQLTable {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.executeUpdate();
     }
+
 }
