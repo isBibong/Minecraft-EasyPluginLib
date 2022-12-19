@@ -6,42 +6,50 @@ import pers.bibong.impl.command.EasyPluginLibCommandMain;
 import pers.bibong.impl.event.PlayerEvents;
 import pers.bibong.impl.file.ConfigLoader;
 
-public final class EasyPluginLib extends JavaPlugin {
+public final class EasyPluginLib extends JavaPlugin
+{
     private static EasyPluginLib inst;
 
     public ConfigLoader config;
 
     @Override
-    public void onLoad () {
+    public void onLoad ()
+    {
         EasyPluginLib.inst = this;
     }
 
     @Override
-    public void onEnable () {
+    public void onEnable ()
+    {
         this.regCommandMain();
         this.regEvents();
         this.loadYaml();
     }
 
-    public void reload () {
+    public void reload ()
+    {
         this.config.load();
     }
 
-    public void loadYaml () {
+    public void loadYaml ()
+    {
         this.config = new ConfigLoader();
     }
 
-    private void regEvents () {
+    private void regEvents ()
+    {
         this.getServer().getPluginManager().registerEvents(new PlayerEvents(), this);
     }
 
-    public void regCommandMain () {
+    public void regCommandMain ()
+    {
         PluginCommand easypluginlib = getCommand("easypluginlib");
-        if (easypluginlib == null) { throw new NullPointerException("can't find command [easypluginlib]."); }
+        if (easypluginlib == null) {throw new NullPointerException("can't find command [easypluginlib].");}
         easypluginlib.setExecutor(new EasyPluginLibCommandMain(this));
     }
 
-    public static EasyPluginLib getInst () {
+    public static EasyPluginLib getInst ()
+    {
         return inst;
     }
 }

@@ -10,22 +10,22 @@ import pers.bibong.lib.message.MessageManager;
 
 import java.util.ArrayList;
 
-public class Test extends AbstractSubCommandExecutor {
+public class Test extends AbstractSubCommandExecutor
+{
 
-    public Test () {
+    public Test ()
+    {
         super("測試讀Yaml", new ArrayList<>());
     }
 
     @Override
     public boolean onCommand (
-            @NotNull CommandSender commandSender,
-            @NotNull Command command,
-            @NotNull String s,
-            @NotNull String[] strings
+            @NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings
     )
     {
 
-        if (!(commandSender instanceof Player player)) {
+        if (!(commandSender instanceof Player player))
+        {
             return false;
         }
 

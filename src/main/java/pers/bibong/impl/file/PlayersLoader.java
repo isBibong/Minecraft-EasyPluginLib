@@ -6,14 +6,17 @@ import pers.bibong.lib.data.file.AbstractYamlLoader;
 
 import java.io.File;
 
-public class PlayersLoader extends AbstractYamlLoader {
+public class PlayersLoader extends AbstractYamlLoader
+{
 
-    public PlayersLoader (@NotNull String playerUUID) {
+    public PlayersLoader (@NotNull String playerUUID)
+    {
         super(EasyPluginLib.getInst(), File.separator + "players" + File.separator, playerUUID + ".yml", true);
     }
 
     @Override
-    public void load () {
+    public void load ()
+    {
         this.reload();
     }
 

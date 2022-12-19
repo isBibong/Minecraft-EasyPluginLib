@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MySQLTable {
+public class MySQLTable
+{
     private final Connection connection;
     private final String     tableName;
 
     public MySQLTable (
-            Connection connection,
-            String tableName
+            Connection connection, String tableName
     )
     {
         this.connection = connection;
@@ -25,16 +25,16 @@ public class MySQLTable {
 
     //VARCHAR(255)
     protected void createTable (
-            @NotNull List<String> columnNames,
-            List<String> columnType
+            @NotNull List<String> columnNames, List<String> columnType
     )
     {
-        String sql = "CREATE TABLE " + tableName + " (" + String.join(", ", columnNames) + " " + String.join(", ",
-                                                                                                             columnType) + ")";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sql = "CREATE TABLE " + tableName + " (" + String.join(", ", columnNames) + " " + String.join(", ", columnType) + ")";
+        try (PreparedStatement statement = connection.prepareStatement(sql))
+        {
             statement.executeUpdate();
         }
-        catch (SQLException e) {
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }
@@ -111,13 +111,16 @@ public class MySQLTable {
     //        statement.executeUpdate();
     //    }
 
-    public void dropTable () {
+    public void dropTable ()
+    {
         String sql = "DROP TABLE " + tableName;
-        try {
+        try
+        {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeUpdate();
         }
-        catch (SQLException e) {
+        catch (SQLException e)
+        {
             e.printStackTrace();
         }
     }

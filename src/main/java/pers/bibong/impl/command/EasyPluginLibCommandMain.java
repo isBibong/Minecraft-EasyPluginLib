@@ -5,9 +5,11 @@ import pers.bibong.impl.command.sub.Reload;
 import pers.bibong.impl.command.sub.Test;
 import pers.bibong.lib.command.AbstractCommandExecutor;
 
-public class EasyPluginLibCommandMain extends AbstractCommandExecutor {
+public class EasyPluginLibCommandMain extends AbstractCommandExecutor
+{
 
-    public EasyPluginLibCommandMain (JavaPlugin plugin) {
+    public EasyPluginLibCommandMain (JavaPlugin plugin)
+    {
         super(plugin, "noPermission");
         this.register();
 

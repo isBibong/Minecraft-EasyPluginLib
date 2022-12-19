@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractCommandExecutor implements TabExecutor {
+public abstract class AbstractCommandExecutor implements TabExecutor
+{
     protected final JavaPlugin plugin;
     protected final String     noPermissionMessage;
 
     public AbstractCommandExecutor (
-            JavaPlugin plugin,
-            String noPermissionMessage
+            JavaPlugin plugin, String noPermissionMessage
     )
     {
         this.plugin              = plugin;
@@ -37,7 +37,8 @@ public abstract class AbstractCommandExecutor implements TabExecutor {
 
         Map<String, AbstractSubCommandExecutor> subCommands = CommandManager.getSubCommands(this.plugin);
 
-        if (strings.length < 1) {
+        if (strings.length < 1)
+        {
             final StringBuilder help = new StringBuilder();
             subCommands.forEach((n, cmd) -> help.append(n).append(": ").append(cmd.getDescription()).append("\n"));
 
@@ -46,15 +47,17 @@ public abstract class AbstractCommandExecutor implements TabExecutor {
             return true;
         }
 
-        if (!subCommands.containsKey(strings[0])) {
+        if (!subCommands.containsKey(strings[0]))
+        {
             return false;
         }
 
         AbstractSubCommandExecutor subCommand      = subCommands.get(strings[0]);
         List<Permission>           permissions     = subCommand.getPermissions();
         boolean                    checkPermission = CommandManager.checkPermission(commandSender, permissions);
-        if (!checkPermission) {
-            MessageManager.sendColorMessageToCommandSender(commandSender,null,  this.noPermissionMessage);
+        if (!checkPermission)
+        {
+            MessageManager.sendColorMessageToCommandSender(commandSender, null, this.noPermissionMessage);
             return false;
         }
 
@@ -73,11 +76,13 @@ public abstract class AbstractCommandExecutor implements TabExecutor {
 
         List<String> subCommands = new ArrayList<>();
 
-        if (strings.length == 1) {
+        if (strings.length == 1)
+        {
             CommandManager.getSubCommands(this.plugin).forEach((cmd, commandExecutor) -> {
                 List<Permission> permissions = commandExecutor.getPermissions();
                 permissions.forEach(permission -> {
-                    if (!commandSender.hasPermission(permission)) {
+                    if (!commandSender.hasPermission(permission))
+                    {
                         return;
                     }
 
@@ -89,13 +94,13 @@ public abstract class AbstractCommandExecutor implements TabExecutor {
         return subCommands;
     }
 
-    protected void register () {
+    protected void register ()
+    {
         CommandManager.register(this.plugin);
     }
 
     protected void putSubCommand (
-            String subCommand,
-            AbstractSubCommandExecutor subCommandExecutor
+            String subCommand, AbstractSubCommandExecutor subCommandExecutor
     )
     {
         CommandManager.putSubCommand(this.plugin, subCommand, subCommandExecutor);
